@@ -1,0 +1,18 @@
+{
+  "_notes": [
+    "Struktur: kategori -> {talt ord: filnavn (uden filtype) i sounds/<kategori>/}. Kategori-inddelt ligesom ovos-skill-convert - kun 'animals' findes lige nu, men skillet er ikke dyre-specifikt (se README), det er bare den bundlede kerneliste der er dyr i dag.",
+    "Alt der ikke findes her falder igennem til freesound.org-fallback - se __init__.py."
+  ],
+  "animals": {
+    "ko": "cow", "koen": "cow", "k\u00f8er": "cow", "kvaeg": "cow",
+    "hund": "dog", "hunde": "dog", "hunden": "dog",
+    "kat": "cat", "katte": "cat", "katten": "cat",
+    "hest": "horse", "heste": "horse", "hesten": "horse",
+    "f\u00e5r": "sheep", "faar": "sheep",
+    "gris": "pig", "grise": "pig", "grisen": "pig", "svin": "pig",
+    "hane": "rooster", "haner": "rooster",
+    "and": "duck", "aender": "duck", "\u00e6nder": "duck",
+    "ugle": "owl", "ugler": "owl",
+    "fr\u00f8": "frog", "fr\u00f8er": "frog"
+  }
+}

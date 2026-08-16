@@ -1,0 +1,23 @@
+{
+  "skill_id": "ovos-skill-sound-like.andlo",
+  "source": "https://github.com/andlo/ovos-skill-sound-like",
+  "package_name": "ovos-skill-sound-like",
+  "pip_spec": "ovos-skill-sound-like",
+  "license": "GPL-3.0-or-later",
+  "author": "andlo",
+  "name": "Hvordan Lyder Det",
+  "description": "Hvordan lyder en ko? Bundlede offline-lyde (i dag dyr) for øjeblikkelige svar, med et valgfrit freesound.org online-fallback for alt andet, filtreret til kun CC0-licenserede resultater.",
+  "examples": [
+    "hvordan lyder en ko",
+    "hvilken lyd laver en hund",
+    "spil en kat lyd"
+  ],
+  "tags": [
+    "lyde",
+    "dyr",
+    "sjov",
+    "børn",
+    "underholdning"
+  ],
+  "icon": "https://raw.githubusercontent.com/andlo/ovos-skill-sound-like/main/icon.png"
+}

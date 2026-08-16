@@ -1,0 +1,18 @@
+{
+  "_notes": [
+    "Structure: category -> {spoken word: bundled sound filename (no extension, lives in sounds/<category>/)}. This is deliberately category-grouped like the ovos-skill-convert project's unit_aliases.json, even though only one category (animals) exists so far - the skill is NOT animal-specific (see README), the bundled/offline set just happens to be animals today. Adding a new bundled category later (e.g. 'landmarks', 'weather') means adding a new top-level key here plus matching files in sounds/<category>/, no code changes.",
+    "Anything not found here falls through to the freesound.org fallback - see __init__.py."
+  ],
+  "animals": {
+    "cow": "cow", "cows": "cow",
+    "dog": "dog", "dogs": "dog",
+    "cat": "cat", "cats": "cat",
+    "horse": "horse", "horses": "horse",
+    "sheep": "sheep",
+    "pig": "pig", "pigs": "pig",
+    "rooster": "rooster", "roosters": "rooster", "cock": "rooster", "cockerel": "rooster",
+    "duck": "duck", "ducks": "duck",
+    "owl": "owl", "owls": "owl",
+    "frog": "frog", "frogs": "frog"
+  }
+}

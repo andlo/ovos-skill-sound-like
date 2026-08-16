@@ -1,0 +1,21 @@
+{
+  "skillMetadata": {
+    "sections": [
+      {
+        "name": "Online fallback",
+        "fields": [
+          {
+            "type": "label",
+            "label": "The bundled sound library (animals, currently) always works fully offline, no key needed. This key only enables the ONLINE FALLBACK for anything not in that bundled list, e.g. 'how does a steam boat sound'. Get a free key at <a href='https://freesound.org/apiv2/apply/'>freesound.org/apiv2/apply</a> (requires a free freesound.org account). Only Creative Commons 0 (public domain) results are ever used."
+          },
+          {
+            "name": "freesound_api_key",
+            "type": "text",
+            "label": "freesound.org API key (optional)",
+            "value": ""
+          }
+        ]
+      }
+    ]
+  }
+}
