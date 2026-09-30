@@ -32,4 +32,6 @@ def skill(monkeypatch):
     s._test_settings = {}
     s.res_dir = str(Path(__file__).resolve().parents[1])
     s._lang_resources = {}
+    s._voc_cache = {}  # needed by voc_list(), bypassed by __new__()
+    s.skill_icon = ""
     return s

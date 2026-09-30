@@ -44,11 +44,14 @@ don't understand that unit" rather than guessing.
 """
 
 import json
+import re
 from pathlib import Path
 
 import requests
-from ovos_workshop.skills import OVOSSkill
+from ovos_utils.ocp import MediaEntry, MediaType, PlaybackType
 from ovos_workshop.decorators import intent_handler
+from ovos_workshop.decorators.ocp import ocp_search
+from ovos_workshop.skills.common_play import OVOSCommonPlaybackSkill
 from ovos_utils.network_utils import is_connected
 
 SKILL_ROOT = Path(__file__).resolve().parent
@@ -109,8 +112,51 @@ def _load_sound_aliases_from_disk():
 
 MERGED_SOUND_ALIASES = _load_sound_aliases_from_disk()
 
+# "play a cat sound" is taken by the OCP pipeline before padatious, so
+# the skill also answers OCP's search (issue #1) - for the bundled
+# sounds only, so it never claims a phrase it can't play offline. OCP
+# only asks skills that support the media type it guessed, so AUDIO,
+# MUSIC and GENERIC are accepted and the result echoes the query's type
+# (OCP's media-type filter keeps it). The bundled file is a normal audio
+# file, so OCP plays it itself (PlaybackType.AUDIO) and handles stop.
+OCP_MEDIA = [MediaType.AUDIO, MediaType.MUSIC, MediaType.GENERIC]
+OCP_CONFIDENCE = 100
 
-class SoundLike(OVOSSkill):
+
+class SoundLike(OVOSCommonPlaybackSkill):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, supported_media=OCP_MEDIA,
+                         skill_icon=str(SKILL_ROOT / "icon.png"), **kwargs)
+
+    def _ocp_subject(self, phrase, lang):
+        """The animal in "a cat sound" / "the sound of a cow" - only when
+        the phrase asks for a sound and names nothing but the animal."""
+        words = re.findall(r"\w+", (phrase or "").lower())
+        sound_words = {w.lower() for w in self.voc_list("sound", lang)}
+        if not sound_words.intersection(words):
+            return None
+        filler = {w.lower() for w in self.voc_list("filler", lang)}
+        subject = " ".join(w for w in words
+                           if w not in sound_words and w not in filler)
+        return subject or None
+
+    @ocp_search()
+    def search_sound(self, phrase, media_type=MediaType.GENERIC):
+        subject = self._ocp_subject(phrase, self.lang)
+        path = self._bundled_sound_path(subject, self.lang) if subject else None
+        if not path:
+            return []
+        return [MediaEntry(
+            uri=f"file://{path}",
+            title=subject,
+            artist="Sound Like",
+            media_type=media_type if media_type in OCP_MEDIA else MediaType.AUDIO,
+            playback=PlaybackType.AUDIO,
+            match_confidence=OCP_CONFIDENCE,
+            skill_icon=self.skill_icon,
+            skill_id=self.skill_id,
+        )]
 
     def _aliases_for(self, lang):
         lang = lang.lower()
